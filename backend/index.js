@@ -17,11 +17,14 @@ const port = (() => {
 
     return num;
 })();
-
+const cors = require("cors");
 const express = require("express");
 const app = express();
 
 app.use(express.json());
+app.use(cors({
+    origin: "http://localhost:5173",
+  }))
 
 // ADD YOUR WORK HERE
 const { expressjwt: jwt } = require('express-jwt');

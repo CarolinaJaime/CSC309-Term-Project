@@ -34,7 +34,7 @@ async function main() {
         console.log("Superuser Created")
     }
     catch (err) {
-        console.log("error creating superuser")
+        console.log(err.message)
     } finally {
         await prisma.$disconnect();
     }
