@@ -13,6 +13,13 @@ import EventDetail from "../pages/EventDetail";
 import EventForm from "../pages/EventForm";
 import ManageGuests from "../pages/ManageGuests";
 import AwardPoints from "../pages/AwardPoints";
+import Profile from "../pages/Profile";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
+import Users from "../pages/Users";
+import UserDetail from "../pages/UserDetail";
+import Register from "../pages/Register";
+
 
 const router = createBrowserRouter([
   {
@@ -25,17 +32,23 @@ const router = createBrowserRouter([
                   [
                   {index: true, element: <Dashboard />},
                   {path: "transactions", element: <Transactions />},
+                  {path: "profile", element: <Profile />},
                   {path: "events", element: <Events />},
                   {path: "events/create", element: <EventForm />},
                   {path: "events/:eventId", element: <EventDetail />},
                   {path: "events/:eventId/edit", element: <EventForm />},
                   {path: "events/:eventId/guests", element: <ManageGuests />},
                   {path: "events/:eventId/award-points", element: <AwardPoints />},
+                  {path: "users", element: <Users />},
+                  {path: "users/:userId", element: <UserDetail />},
+                  {path: "register", element: <Register />},
                   ]
                  },
             ]
         },
         { path: "login", element: <PublicLayout /> },
+        { path: "forgot-password", element: <ForgotPassword /> },
+        { path: "reset-password/:token", element: <ResetPassword /> },
     ],
   },
 ]);

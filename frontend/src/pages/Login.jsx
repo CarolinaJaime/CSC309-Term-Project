@@ -100,10 +100,20 @@ export default function Login() {
             />
           </div>
 
+          {/* Forgot Password Link */}
+          <div className="text-right">
+            <Link
+              to="/forgot-password"
+              className="text-sm text-pink-600 hover:text-pink-700 hover:underline"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 bg-pink-600 text-white py-2.5 rounded-lg font-medium hover:bg-pink-700 disabled:opacity-60 disabled:cursor-not-allowed transition"
+            className=" bg-pink-600 text-white py-2.5 rounded-lg font-medium hover:bg-pink-700 disabled:opacity-60 disabled:cursor-not-allowed transition"
           >
             {loading ? "Logging in..." : "Log In"}
           </button>

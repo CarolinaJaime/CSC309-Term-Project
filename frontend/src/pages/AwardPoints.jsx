@@ -6,7 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function AwardPoints() {
   const { eventId } = useParams();
-  const { user, token } = useAuth();
+  const { user, token, currentView } = useAuth();
   
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);

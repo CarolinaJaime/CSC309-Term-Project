@@ -6,7 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function EventForm() {
   const { eventId } = useParams();
-  const { user, token } = useAuth();
+  const { user, token, currentView } = useAuth();
   const navigate = useNavigate();
   const isEdit = !!eventId;
 

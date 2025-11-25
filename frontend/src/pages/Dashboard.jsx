@@ -5,23 +5,26 @@ import { Link } from "react-router-dom";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function Dashboard() {
-  const { user, token } = useAuth();
+  const { user, token, currentView } = useAuth();
   const [transactions, setTransactions] = useState([]);
   const [events, setEvents] = useState([]);
   const [promotions, setPromotions] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Use currentView if available, otherwise fall back to user.role
+  const activeView = currentView || user?.role;
+
   useEffect(() => {
     if (!user || !token) return;
     fetchDashboardData();
-  }, [user, token]);
+  }, [user, token, activeView]);
 
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
       
-      if (user.role === "regular") {
+      if (activeView === "regular") {
         // Fetch recent transactions for regular users
         const res = await fetch(`${API_BASE_URL}/users/me/transactions?limit=5`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -30,9 +33,9 @@ export default function Dashboard() {
           const data = await res.json();
           setTransactions(data.results || []);
         }
-      } else if (user.role === "cashier") {
+      } else if (activeView === "cashier") {
         // Cashiers don't need specific data on dashboard
-      } else if (user.role === "manager" || user.role === "superuser") {
+      } else if (activeView === "manager" || activeView === "superuser") {
         // Fetch overview data for managers/superusers
         const [eventsRes, promosRes, usersRes] = await Promise.all([
           fetch(`${API_BASE_URL}/events?limit=5`, {
@@ -72,8 +75,11 @@ export default function Dashboard() {
     <div className="max-w-7xl mx-auto space-y-6">
       <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
 
+      {/* Debug info - remove in production */}
+      <p className="text-xs text-gray-500">Current View: {activeView} | User Role: {user.role}</p>
+
       {/* Regular User Dashboard */}
-      {user.role === "regular" && (
+      {activeView === "regular" && (
         <>
           {/* Points Balance Card */}
           <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl shadow-lg p-8 text-white">
@@ -159,7 +165,7 @@ export default function Dashboard() {
       )}
 
       {/* Cashier Dashboard */}
-      {user.role === "cashier" && (
+      {activeView === "cashier" && (
         <>
           <div className="bg-white rounded-xl shadow-md p-8 text-center">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Cashier Dashboard</h2>
@@ -188,7 +194,7 @@ export default function Dashboard() {
       )}
 
       {/* Manager/Superuser Dashboard */}
-      {(user.role === "manager" || user.role === "superuser") && (
+      {(activeView === "manager" || activeView === "superuser") && (
         <>
           <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl shadow-lg p-8 text-white">
             <h2 className="text-2xl font-bold">Management Overview</h2>

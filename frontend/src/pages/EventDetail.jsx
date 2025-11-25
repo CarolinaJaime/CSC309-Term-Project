@@ -6,7 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function EventDetail() {
   const { eventId } = useParams();
-  const { user, token } = useAuth();
+  const { user, token, currentView } = useAuth();
   const navigate = useNavigate();
   
   const [event, setEvent] = useState(null);
