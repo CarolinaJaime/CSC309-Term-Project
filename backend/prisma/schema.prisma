@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -65,8 +65,8 @@ model Transaction {
   user        User   @relation("customer", fields: [utorid], references: [utorid])
 
   type        TransactionType
-  spent       Float?                    // only for purchase
-  points      Int                     // for a transfer, the earned should be negative for sender and positive for recipient?
+  spent       Float?
+  points      Int
   remark      String @default("")
   promotionIds Promotion[] @relation("transactionPromotion")
   relatedId   Int?
