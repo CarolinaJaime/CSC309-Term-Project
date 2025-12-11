@@ -51,7 +51,7 @@ export default function Register() {
         utorid: data.utorid,
         name: data.name,
         email: data.email,
-        password: "password123", // default password
+        password: "Password123!"
       });
 
       // Clear form
