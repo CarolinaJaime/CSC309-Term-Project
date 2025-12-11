@@ -144,7 +144,8 @@ const handleUpdate = async (updates) => {
     if (userData.role === "cashier") availableRoles.push("regular", "manager", "superuser");
     if (userData.role === "manager") availableRoles.push("regular", "cashier", "superuser");
     if (userData.role === "superuser") availableRoles.push("regular", "cashier", "manager");
-  } else if (isManager) {
+  }
+  if (isManager) {
     if (userData.role === "regular") availableRoles.push("cashier");
     if (userData.role === "cashier") availableRoles.push("regular");
   }
